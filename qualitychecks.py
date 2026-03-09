@@ -14,9 +14,6 @@ def check_nulls_and_duplicates(database_url):
 
     with engine.connect() as conn:
 
-        # -------------------------
-        # TOTAL ROW COUNT
-        # -------------------------
         total_rows = conn.execute(
             text(f"SELECT COUNT(*) FROM `{table_name}`")
         ).scalar()
@@ -27,9 +24,6 @@ def check_nulls_and_duplicates(database_url):
             print("Table is empty!")
             return
 
-        # -------------------------
-        # NULL CHECK
-        # -------------------------
         print(f"{'Column':<30} {'NULLs':<10} {'Percentage'}")
         print("-" * 60)
 
@@ -49,9 +43,7 @@ def check_nulls_and_duplicates(database_url):
         if not null_found:
             print("✓ No NULL values found!")
 
-        # -------------------------
-        # REMOVE EXACT DUPLICATES
-        # -------------------------
+
         print("\nChecking for exact duplicate rows...")
 
         conn.execute(text(f"""
@@ -84,9 +76,7 @@ def check_nulls_and_duplicates(database_url):
         print(f"\nFinal row count: {final_rows}")
 
 
-# -------------------------
-# RUN SCRIPT
-# -------------------------
+
 
 if __name__ == "__main__":
 
